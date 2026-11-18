@@ -21,8 +21,6 @@ resource "random_id" "suffix" {
 }
 
 # 1. S3 Bucket (Access logging & KMS CMK intentionally omitted to maintain $0 Free Tier cost; free AES256 enabled below)
-#trivy:ignore:AWS-0089
-#trivy:ignore:AWS-0132
 resource "aws_s3_bucket" "site" {
   bucket        = "nejamul-iac-web-${random_id.suffix.hex}"
   force_destroy = true
@@ -58,8 +56,6 @@ resource "aws_s3_bucket_website_configuration" "site" {
 }
 
 # 5. Public Access Block (Public policy intentionally allowed for static website hosting)
-#trivy:ignore:AWS-0087
-#trivy:ignore:AWS-0093
 resource "aws_s3_bucket_public_access_block" "site" {
   bucket                  = aws_s3_bucket.site.id
   block_public_acls       = true
