@@ -41,7 +41,11 @@ A production-grade **Terraform Infrastructure as Code (IaC)** repository enginee
 └─────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+---
+
 ## DevSecOps Security Controls
+
+```text
 +--------------------+----------------------+-------------------------------------------------------------------+
 | Layer              | File                 | Provisioned Resources & Security Hardening                        |
 +--------------------+----------------------+-------------------------------------------------------------------+
@@ -62,10 +66,19 @@ A production-grade **Terraform Infrastructure as Code (IaC)** repository enginee
 |                    |                      | • Runs Trivy config scan (blocks MEDIUM, HIGH & CRITICAL flaws)   |
 |                    |                      | • Explicit #trivy:ignore justifications for Free Tier exceptions   |
 +--------------------+----------------------+-------------------------------------------------------------------+
+```
+
+---
 
 ## Live Deployment Proof
 
+![Live S3 Static Website](assets/live-s3-preview.png)
+
+---
+
 ## Repository Structure
+
+```text
 terraform-aws-infra/
 ├── .github/
 │   └── workflows/
@@ -78,10 +91,15 @@ terraform-aws-infra/
 ├── main.tf                      # S3 static website hosting, AES256 encryption & versioning
 ├── network_compute.tf           # Custom VPC, Subnet, IGW, Security Group & IMDSv2 EC2 node
 └── README.md                    # Project architecture, security controls & lifecycle guide
+```
 
-## Quick Start
+---
+
+## Quick Start & Zero-Billing Lifecycle
+
+```bash
 # 1. Clone the repository
-git clone [https://github.com/NejamulHaque/terraform-aws-infra.git](https://github.com/NejamulHaque/terraform-aws-infra.git)
+git clone https://github.com/NejamulHaque/terraform-aws-infra.git
 cd terraform-aws-infra
 
 # 2. Authenticate locally via ~/.aws/credentials
@@ -103,16 +121,25 @@ terraform apply -auto-approve
 
 # 7. Tear down all resources immediately after verification ($0.00 AWS spend)
 terraform destroy -auto-approve
+```
+
+---
 
 ## CI/CD Pipeline Execution Flow
+
+```text
 git push / PR to main
-  ├── 1. terraform fmt -check        -> Enforces canonical HCL formatting
+  ├── 1. terraform fmt -check          -> Enforces canonical HCL formatting
   ├── 2. terraform init -backend=false -> Initializes provider schemas without AWS keys
-  ├── 3. terraform validate          -> Verifies resource graph syntax & attribute types
-  └── 4. aquasecurity/trivy-action   -> Fails build (exit-code: 1) on MEDIUM/HIGH/CRITICAL flaws
+  ├── 3. terraform validate            -> Verifies resource graph syntax & attribute types
+  └── 4. aquasecurity/trivy-action     -> Fails build (exit-code: 1) on MEDIUM/HIGH/CRITICAL flaws
+```
+
+---
 
 ## Author
-Name:      Nejamul Haque (B.Tech CSE '27 — DevSecOps, Cloud Infrastructure & Backend Engineering)
-Portfolio: [https://nejamulhaque.vercel.app](https://nejamulhaque.vercel.app)
-GitHub:    [https://github.com/NejamulHaque](https://github.com/NejamulHaque)
-LinkedIn:  [https://linkedin.com/in/nejamulhaque](https://linkedin.com/in/nejamulhaque)
+
+- **Name:** Nejamul Haque (B.Tech CSE '27 — DevSecOps, Cloud Infrastructure & Backend Engineering)
+- **Portfolio:** [https://nejamulhaque.vercel.app](https://nejamulhaque.vercel.app)
+- **GitHub:** [https://github.com/NejamulHaque](https://github.com/NejamulHaque)
+- **LinkedIn:** [https://linkedin.com/in/nejamulhaque](https://linkedin.com/in/nejamulhaque)
